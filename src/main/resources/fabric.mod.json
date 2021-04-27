@@ -8,8 +8,8 @@
     "MrMelon54"
   ],
   "contact": {
-    "website": "https://minecraft.onpointcoding.net/mods/extraarmourinfo",
-    "repo": "https://github.com/MrMelon54/extra-armour-info-fabric-1.16"
+    "homepage": "https://minecraft.onpointcoding.net/mods/extraarmourinfo",
+    "sources": "https://github.com/MrMelon54/extra-armour-info-fabric-1.16"
   },
   "license": "MIT",
   "icon": "assets/extraarmourinfo/icon.png",

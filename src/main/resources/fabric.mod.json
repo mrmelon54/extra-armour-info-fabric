@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "id": "extraarmourinfo",
+  "version": "${version}",
+  "name": "Extra Armour Info",
+  "description": "",
+  "authors": [
+    "MrMelon54"
+  ],
+  "contact": {
+    "website": "https://minecraft.onpointcoding.net/mods/extraarmourinfo",
+    "repo": "https://github.com/MrMelon54/extra-armour-info-fabric-1.16"
+  },
+  "license": "MIT",
+  "icon": "assets/extraarmourinfo/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "net.onpointcoding.extraarmourinfo.client.ExtraArmourInfoClient"
+    ],
+    "main": [
+      "net.onpointcoding.extraarmourinfo.ExtraArmourInfo"
+    ],
+    "modmenu": [
+      "net.onpointcoding.extraarmourinfo.ModMenuIntegration"
+    ]
+  },
+  "mixins": [
+    "ExtraArmourInfo.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.11.3",
+    "fabric": "*",
+    "minecraft": "1.16.x",
+    "modmenu": "*"
+  },
+  "custom": {
+    "modmenu:clientSideOnly": true
+  }
+}

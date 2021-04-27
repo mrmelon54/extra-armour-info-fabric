@@ -1,0 +1,15 @@
+{
+  "text.autoconfig.extraarmourinfo.title": "Extra Armour Info",
+  "text.autoconfig.extraarmourinfo.category.knockback": "Knockback Resistance",
+  "text.autoconfig.extraarmourinfo.option.knockback.enabled": "Enabled:",
+  "text.autoconfig.extraarmourinfo.option.knockback.position": "Position:",
+  "text.autoconfig.extraarmourinfo.option.knockback.side": "Side:",
+  "text.autoconfig.extraarmourinfo.option.knockback.tweakX": "Tweak X:",
+  "text.autoconfig.extraarmourinfo.option.knockback.tweakY": "Tweak Y:",
+  "text.autoconfig.extraarmourinfo.category.toughness": "Toughness",
+  "text.autoconfig.extraarmourinfo.option.toughness.enabled": "Enabled:",
+  "text.autoconfig.extraarmourinfo.option.toughness.position": "Position:",
+  "text.autoconfig.extraarmourinfo.option.toughness.side": "Side:",
+  "text.autoconfig.extraarmourinfo.option.toughness.tweakX": "Tweak X:",
+  "text.autoconfig.extraarmourinfo.option.toughness.tweakY": "Tweak Y:"
+}

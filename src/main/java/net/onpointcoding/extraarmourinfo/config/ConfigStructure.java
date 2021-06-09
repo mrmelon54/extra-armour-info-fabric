@@ -1,8 +1,8 @@
 package net.onpointcoding.extraarmourinfo.config;
 
-import me.sargunvohra.mcmods.autoconfig1u.ConfigData;
-import me.sargunvohra.mcmods.autoconfig1u.annotation.Config;
-import me.sargunvohra.mcmods.autoconfig1u.annotation.ConfigEntry;
+import me.shedaniel.autoconfig.ConfigData;
+import me.shedaniel.autoconfig.annotation.Config;
+import me.shedaniel.autoconfig.annotation.ConfigEntry;
 import net.onpointcoding.extraarmourinfo.config.statusbars.KnockbackConfig;
 import net.onpointcoding.extraarmourinfo.config.statusbars.ToughnessConfig;
 

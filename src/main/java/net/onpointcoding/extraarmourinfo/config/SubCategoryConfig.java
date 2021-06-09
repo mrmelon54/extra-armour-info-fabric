@@ -1,6 +1,6 @@
 package net.onpointcoding.extraarmourinfo.config;
 
-import me.sargunvohra.mcmods.autoconfig1u.ConfigData;
+import me.shedaniel.autoconfig.ConfigData;
 import net.onpointcoding.extraarmourinfo.enums.PositionDisplayOption;
 import net.onpointcoding.extraarmourinfo.enums.SideDisplayOption;
 

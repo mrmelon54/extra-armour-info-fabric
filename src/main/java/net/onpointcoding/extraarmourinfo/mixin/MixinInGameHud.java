@@ -1,5 +1,6 @@
 package net.onpointcoding.extraarmourinfo.mixin;
 
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.gui.hud.InGameHud;
@@ -89,8 +90,7 @@ public abstract class MixinInGameHud extends DrawableHelper {
                 else knockbackPosY -= 10;
 
             // use custom icons texture
-            this.client.getTextureManager().bindTexture(EXTRA_ARMOUR_INFO_ICONS_TEXTURE);
-
+            RenderSystem.setShaderTexture(0, EXTRA_ARMOUR_INFO_ICONS_TEXTURE);
             this.client.getProfiler().swap("extra-armour-info");
 
             double armourToughness = 0;
@@ -108,7 +108,7 @@ public abstract class MixinInGameHud extends DrawableHelper {
             drawStatusBarIcons(knockbackConfig, matrices, knockbackPosX, knockbackPosY, 9, v2);
 
             // Revert to GUI icons once done
-            this.client.getTextureManager().bindTexture(GUI_ICONS_TEXTURE);
+            RenderSystem.setShaderTexture(0, GUI_ICONS_TEXTURE);
         }
     }
 
@@ -144,20 +144,16 @@ public abstract class MixinInGameHud extends DrawableHelper {
 
     private int getCorrectCoordinates(SubCategoryConfig config, int hudLeft, int hudRight, int topLeftY, int topRightY, int middleLeftY, int middleRightY, int bottomLeftY, int bottomRightY) {
         boolean isLeft = config.getSide() == SideDisplayOption.LEFT;
-        switch (config.getPosition()) {
-            default:
-            case HUD:
-                return isLeft ? hudLeft : hudRight;
-            case TOP:
-                return isLeft ? topLeftY : topRightY;
-            case MIDDLE:
-                return isLeft ? middleLeftY : middleRightY;
-            case BOTTOM:
-                return isLeft ? bottomLeftY : bottomRightY;
-        }
+        return switch (config.getPosition()) {
+            case HUD -> isLeft ? hudLeft : hudRight;
+            case TOP -> isLeft ? topLeftY : topRightY;
+            case MIDDLE -> isLeft ? middleLeftY : middleRightY;
+            case BOTTOM -> isLeft ? bottomLeftY : bottomRightY;
+        };
     }
 
     public void drawCustomTexture(MatrixStack matrices, int x, int y, int u, int v, int width, int height) {
-        drawTexture(matrices, x, y, getZOffset(), (float) u, (float) v, width, height, 32, 32);
+        drawTexture(matrices, x, y, 0, (float) u, (float) v, width, height, 32, 32);
     }
+
 }

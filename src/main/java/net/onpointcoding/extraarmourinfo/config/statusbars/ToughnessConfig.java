@@ -1,7 +1,7 @@
 package net.onpointcoding.extraarmourinfo.config.statusbars;
 
-import me.sargunvohra.mcmods.autoconfig1u.annotation.Config;
-import me.sargunvohra.mcmods.autoconfig1u.annotation.ConfigEntry;
+import me.shedaniel.autoconfig.annotation.Config;
+import me.shedaniel.autoconfig.annotation.ConfigEntry;
 import net.onpointcoding.extraarmourinfo.config.SubCategoryConfig;
 import net.onpointcoding.extraarmourinfo.enums.PositionDisplayOption;
 import net.onpointcoding.extraarmourinfo.enums.SideDisplayOption;

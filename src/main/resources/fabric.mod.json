@@ -9,7 +9,7 @@
   ],
   "contact": {
     "homepage": "https://minecraft.onpointcoding.net/mods/extraarmourinfo",
-    "sources": "https://github.com/MrMelon54/extra-armour-info-fabric-1.16"
+    "sources": "https://github.com/MrMelon54/extra-armour-info-fabric"
   },
   "license": "MIT",
   "icon": "assets/extraarmourinfo/icon.png",
@@ -31,10 +31,12 @@
   "depends": {
     "fabricloader": ">=0.11.3",
     "fabric": "*",
-    "minecraft": "1.16.x",
+    "minecraft": "1.17.x",
     "modmenu": "*"
   },
   "custom": {
-    "modmenu:clientSideOnly": true
+    "modmenu": {
+      "badges": []
+    }
   }
 }

@@ -33,8 +33,12 @@ Files:
 
 ## Discord
 
-- https://discord.gg/usbmdrJ
+- MrMelon's: https://discord.gg/usbmdrJ
+- LimeShulkerBox's: https://discord.gg/XhHuYG7aXT
 
 ## Download
 
 - [CurseForge](https://www.curseforge.com/minecraft/mc-mods/extra-armour-info)
+
+Use code 'Lime' for 25% off your first month at: [Bisect Hosting](https://bisecthosting.com)
+

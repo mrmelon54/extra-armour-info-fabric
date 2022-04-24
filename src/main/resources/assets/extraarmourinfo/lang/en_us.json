@@ -11,5 +11,11 @@
   "text.autoconfig.extraarmourinfo.option.toughness.position": "Position:",
   "text.autoconfig.extraarmourinfo.option.toughness.side": "Side:",
   "text.autoconfig.extraarmourinfo.option.toughness.tweakX": "Tweak X:",
-  "text.autoconfig.extraarmourinfo.option.toughness.tweakY": "Tweak Y:"
+  "text.autoconfig.extraarmourinfo.option.toughness.tweakY": "Tweak Y:",
+  "text.autoconfig.extraarmourinfo.category.hot-icons": "Armour Icons",
+  "text.autoconfig.extraarmourinfo.option.hotIcons.enabled": "Enabled:",
+  "text.autoconfig.extraarmourinfo.option.hotIcons.position": "Position:",
+  "text.autoconfig.extraarmourinfo.option.hotIcons.side": "Side:",
+  "text.autoconfig.extraarmourinfo.option.hotIcons.tweakX": "Tweak X:",
+  "text.autoconfig.extraarmourinfo.option.hotIcons.tweakY": "Tweak Y:"
 }

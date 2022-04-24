@@ -4,6 +4,7 @@ import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.serializer.JanksonConfigSerializer;
 import net.fabricmc.api.ModInitializer;
 import net.onpointcoding.extraarmourinfo.config.ConfigStructure;
+import net.onpointcoding.extraarmourinfo.config.statusbars.HotIconConfig;
 import net.onpointcoding.extraarmourinfo.config.statusbars.KnockbackConfig;
 import net.onpointcoding.extraarmourinfo.config.statusbars.ToughnessConfig;
 
@@ -34,5 +35,9 @@ public class ExtraArmourInfo implements ModInitializer {
 
     public ToughnessConfig getToughnessConfig() {
         return getConfig().toughness;
+    }
+
+    public HotIconConfig getHotIconConfig() {
+        return getConfig().hotIcons;
     }
 }

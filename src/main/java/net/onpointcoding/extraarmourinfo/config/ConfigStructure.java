@@ -3,6 +3,7 @@ package net.onpointcoding.extraarmourinfo.config;
 import me.shedaniel.autoconfig.ConfigData;
 import me.shedaniel.autoconfig.annotation.Config;
 import me.shedaniel.autoconfig.annotation.ConfigEntry;
+import net.onpointcoding.extraarmourinfo.config.statusbars.HotIconConfig;
 import net.onpointcoding.extraarmourinfo.config.statusbars.KnockbackConfig;
 import net.onpointcoding.extraarmourinfo.config.statusbars.ToughnessConfig;
 
@@ -18,5 +19,9 @@ class ConfigStructure implements ConfigData {
     @ConfigEntry.Category("toughness")
     @ConfigEntry.Gui.TransitiveObject
     public ToughnessConfig toughness = new ToughnessConfig();
+
+    @ConfigEntry.Category("hot-icons")
+    @ConfigEntry.Gui.TransitiveObject
+    public HotIconConfig hotIcons = new HotIconConfig();
 }
 

@@ -4,9 +4,11 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.gui.hud.InGameHud;
+import net.minecraft.client.gui.hud.PlayerListHud;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tag.FluidTags;
@@ -14,6 +16,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 import net.onpointcoding.extraarmourinfo.ExtraArmourInfo;
 import net.onpointcoding.extraarmourinfo.config.SubCategoryConfig;
+import net.onpointcoding.extraarmourinfo.config.statusbars.HotIconConfig;
 import net.onpointcoding.extraarmourinfo.config.statusbars.KnockbackConfig;
 import net.onpointcoding.extraarmourinfo.config.statusbars.ToughnessConfig;
 import net.onpointcoding.extraarmourinfo.enums.PositionDisplayOption;
@@ -39,6 +42,19 @@ public abstract class MixinInGameHud extends DrawableHelper {
 
     @Shadow
     protected abstract PlayerEntity getCameraPlayer();
+
+    @Shadow
+    protected abstract void renderHotbarItem(int x, int y, float tickDelta, PlayerEntity player, ItemStack stack, int seed);
+
+    @Shadow
+    @Final
+    private PlayerListHud playerListHud;
+
+    @Shadow
+    protected abstract void renderHotbar(float tickDelta, MatrixStack matrices);
+
+    @Shadow
+    public abstract void tick(boolean paused);
 
     @Inject(method = "renderStatusBars", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/profiler/Profiler;swap(Ljava/lang/String;)V"))
     public void renderExtraArmourInfoStatusBar(MatrixStack matrices, CallbackInfo ci) {
@@ -118,7 +134,6 @@ public abstract class MixinInGameHud extends DrawableHelper {
         int y2 = y + config.getTweakY();
         if (config.isEnabled()) {
             // Draw each icon in the status bar
-            // TODO: draw icons vertically when SIDE = MIDDLE
             boolean isMiddle = config.getPosition() == PositionDisplayOption.MIDDLE;
             boolean isLeft = config.getSide() == SideDisplayOption.LEFT;
             for (int i = 0; i < 10; ++i) {
@@ -131,7 +146,7 @@ public abstract class MixinInGameHud extends DrawableHelper {
                         drawCustomTexture(matrices, screenX, screenY, 18, textureV, 9, 9);
                     else if (i * 2 + 1 == v) {
                         // Draw half the empty icon and the other half of the split icon
-                        int tweakSide = (config.getSide() == SideDisplayOption.LEFT ? 1 : 0) * 4;
+                        int tweakSide = (isLeft ? 1 : 0) * 4;
                         drawCustomTexture(matrices, screenX + tweakSide, screenY, tweakSide, textureV, 5, 9);
                         drawCustomTexture(matrices, screenX + 4 - tweakSide, screenY, 9 + 4 - tweakSide, textureV, 5, 9);
                     } else if (i * 2 + 1 > v)
@@ -156,4 +171,48 @@ public abstract class MixinInGameHud extends DrawableHelper {
         drawTexture(matrices, x, y, 0, (float) u, (float) v, width, height, 32, 32);
     }
 
+    @Inject(method = "renderHotbar", at = @At("TAIL"))
+    private void renderHotbar(float tickDelta, MatrixStack matrices, CallbackInfo ci) {
+        ExtraArmourInfo extraArmourInfo = ExtraArmourInfo.getInstance();
+        HotIconConfig hotIconConfig = extraArmourInfo.getHotIconConfig();
+
+        if (hotIconConfig.isEnabled()) {
+            RenderSystem.enableBlend();
+            RenderSystem.defaultBlendFunc();
+            PlayerEntity playerEntity = getCameraPlayer();
+            PlayerInventory inventory = playerEntity.getInventory();
+
+            boolean isLeft = hotIconConfig.getSide() == SideDisplayOption.LEFT;
+            boolean isBottom = hotIconConfig.getPosition() == PositionDisplayOption.BOTTOM;
+
+            int o = isLeft ? 0 : scaledWidth;
+            int p = 0;
+
+            if (hotIconConfig.getPosition() == PositionDisplayOption.HUD) {
+                o = scaledWidth / 2;
+                o += isLeft ? -(91 + 29 + 16 + 8) : 91 + 8;
+                p = scaledHeight - 4 * 16;
+                o += hotIconConfig.getTweakX();
+                p += hotIconConfig.getTweakY();
+                for (int i = 0; i < 4; i++)
+                    renderHotbarItem(o, p + i * 16, tickDelta, playerEntity, inventory.armor.get(3 - i), i + 1);
+            } else if (hotIconConfig.getPosition() == PositionDisplayOption.MIDDLE) {
+                p = scaledHeight / 2 - 32;
+                if (!isLeft) o -= 16;
+                o += hotIconConfig.getTweakX();
+                p += hotIconConfig.getTweakY();
+                for (int i = 0; i < 4; i++)
+                    renderHotbarItem(o, p + i * 16, tickDelta, playerEntity, inventory.armor.get(3 - i), i + 1);
+            } else {
+                if (!isLeft) o -= 4 * 16;
+                if (isBottom) p = scaledHeight - 16;
+                o += hotIconConfig.getTweakX();
+                p += hotIconConfig.getTweakY();
+                for (int i = 0; i < 4; i++)
+                    renderHotbarItem(o + i * 16, p, tickDelta, playerEntity, inventory.armor.get(3 - i), i + 1);
+
+            }
+            RenderSystem.disableBlend();
+        }
+    }
 }

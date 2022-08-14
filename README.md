@@ -40,5 +40,5 @@ Files:
 
 - [CurseForge](https://www.curseforge.com/minecraft/mc-mods/extra-armour-info)
 
-Use code 'Lime' for 25% off your first month at: [Bisect Hosting](https://bisecthosting.com)
+Use code 'Lime' for 25% off your first month at: [Bisect Hosting](https://bisecthosting.com/lime)
 

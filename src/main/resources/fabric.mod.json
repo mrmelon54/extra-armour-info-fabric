@@ -5,7 +5,8 @@
   "name": "Extra Armour Info",
   "description": "",
   "authors": [
-    "MrMelon54"
+    "MrMelon54",
+    "LimeShulkerBox"
   ],
   "contact": {
     "homepage": "https://minecraft.onpointcoding.net/mods/extraarmourinfo",
@@ -15,9 +16,6 @@
   "icon": "assets/extraarmourinfo/icon.png",
   "environment": "client",
   "entrypoints": {
-    "client": [
-      "net.onpointcoding.extraarmourinfo.client.ExtraArmourInfoClient"
-    ],
     "main": [
       "net.onpointcoding.extraarmourinfo.ExtraArmourInfo"
     ],
@@ -29,14 +27,9 @@
     "ExtraArmourInfo.mixins.json"
   ],
   "depends": {
-    "fabricloader": ">=0.13.3",
+    "fabricloader": ">=0.14.0",
     "fabric": "*",
-    "minecraft": "1.18.x",
+    "minecraft": "1.19.x",
     "modmenu": "*"
-  },
-  "custom": {
-    "modmenu": {
-      "badges": []
-    }
   }
 }

@@ -16,9 +16,6 @@
   "icon": "assets/extraarmourinfo/icon.png",
   "environment": "client",
   "entrypoints": {
-    "client": [
-      "net.onpointcoding.extraarmourinfo.client.ExtraArmourInfoClient"
-    ],
     "main": [
       "net.onpointcoding.extraarmourinfo.ExtraArmourInfo"
     ],

@@ -67,7 +67,7 @@ public abstract class MixinInGameHud extends DrawableHelper {
         PlayerEntity playerEntity = getCameraPlayer();
 
         if (playerEntity != null) {
-            // just a copy of some of the math in the vanilla renderStatusBars method
+            // just a copy of some math in the vanilla renderStatusBars method
             int m = scaledWidth / 2;
             int o = scaledHeight - 39;
             float f = (float) playerEntity.getAttributeValue(EntityAttributes.GENERIC_MAX_HEALTH);
@@ -76,8 +76,8 @@ public abstract class MixinInGameHud extends DrawableHelper {
             int r = Math.max(10 - (q - 2), 3);
             int s = o - (q - 1) * r - 10;
 
-            int leftX = m - 91; // 91 is the icon furthest left
-            int rightX = m + 91 - 9 * 9; // 91 is the icon furthest right
+            int leftX = m - 91; // 91 is the icon furthest to the left
+            int rightX = m + 91 - 9 * 9; // 91 is the icon furthest to the right
             int leftY = s - 10; // Leave 10 pixels for health bar
             int rightY = o - 10; // Leave 10 pixels for hunger bar
 
@@ -90,8 +90,7 @@ public abstract class MixinInGameHud extends DrawableHelper {
             int ah = playerEntity.getMaxAir();
             int ai = Math.min(playerEntity.getAir(), ah);
 
-            if (playerEntity.isSubmergedIn(FluidTags.WATER) || ai < ah)
-                rightY -= 10; // Make room for water bubbles
+            if (playerEntity.isSubmergedIn(FluidTags.WATER) || ai < ah) rightY -= 10; // Make room for bubbles when in water
 
             int toughnessPosX = getCorrectCoordinates(toughnessConfig, leftX, rightX, farLeftX, farRightX, farLeftX, farMiddleRightX, farLeftX, farRightX);
             int toughnessPosY = getCorrectCoordinates(toughnessConfig, leftY, rightY, 1, 1, farMiddleY, farMiddleY, farBottomY, farBottomY);
@@ -128,28 +127,28 @@ public abstract class MixinInGameHud extends DrawableHelper {
         }
     }
 
-    private void drawStatusBarIcons(SubCategoryConfig config, MatrixStack matrices, int x, int y, int textureV, double v) {
+    private void drawStatusBarIcons(SubCategoryConfig config, MatrixStack matrices, int x, int y, int textureV, double value) {
         // Tweak the X and Y by custom config positions
-        int x2 = x + config.getTweakX();
-        int y2 = y + config.getTweakY();
+        int tweakedX = x + config.getTweakX();
+        int tweakedY = y + config.getTweakY();
         if (config.isEnabled()) {
             // Draw each icon in the status bar
             boolean isMiddle = config.getPosition() == PositionDisplayOption.MIDDLE;
             boolean isLeft = config.getSide() == SideDisplayOption.LEFT;
             for (int i = 0; i < 10; ++i) {
-                if (v > 0) {
+                if (value > 0) {
                     int offset = isMiddle ? i * 9 : (isLeft ? i * 8 : 9 * 8 - i * 8);
-                    int screenX = isMiddle ? x2 : x2 + offset;
-                    int screenY = isMiddle ? y2 + offset : y2;
-                    if (i * 2 + 1 < v)
+                    int screenX = isMiddle ? tweakedX : tweakedX + offset;
+                    int screenY = isMiddle ? tweakedY + offset : tweakedY;
+                    if (i * 2 + 1 < value)
                         // Draw the fully filled icon
                         drawCustomTexture(matrices, screenX, screenY, 18, textureV, 9, 9);
-                    else if (i * 2 + 1 == v) {
+                    else if (i * 2 + 1 == value) {
                         // Draw half the empty icon and the other half of the split icon
                         int tweakSide = (isLeft ? 1 : 0) * 4;
                         drawCustomTexture(matrices, screenX + tweakSide, screenY, tweakSide, textureV, 5, 9);
                         drawCustomTexture(matrices, screenX + 4 - tweakSide, screenY, 9 + 4 - tweakSide, textureV, 5, 9);
-                    } else if (i * 2 + 1 > v)
+                    } else if (i * 2 + 1 > value)
                         // Draw the empty icon
                         drawCustomTexture(matrices, screenX, screenY, 0, textureV, 9, 9);
                 }
@@ -185,31 +184,31 @@ public abstract class MixinInGameHud extends DrawableHelper {
             boolean isLeft = hotIconConfig.getSide() == SideDisplayOption.LEFT;
             boolean isBottom = hotIconConfig.getPosition() == PositionDisplayOption.BOTTOM;
 
-            int o = isLeft ? 0 : scaledWidth;
-            int p = 0;
+            int iconX = isLeft ? 0 : scaledWidth;
+            int iconY = 0;
 
             if (hotIconConfig.getPosition() == PositionDisplayOption.HUD) {
-                o = scaledWidth / 2;
-                o += isLeft ? -(91 + 29 + 16 + 8) : 91 + 8;
-                p = scaledHeight - 4 * 16;
-                o += hotIconConfig.getTweakX();
-                p += hotIconConfig.getTweakY();
+                iconX = scaledWidth / 2;
+                iconX += isLeft ? -(91 + 29 + 16 + 8) : 91 + 8;
+                iconY = scaledHeight - 4 * 16;
+                iconX += hotIconConfig.getTweakX();
+                iconY += hotIconConfig.getTweakY();
                 for (int i = 0; i < 4; i++)
-                    renderHotbarItem(o, p + i * 16, tickDelta, playerEntity, inventory.armor.get(3 - i), i + 1);
+                    renderHotbarItem(iconX, iconY + i * 16, tickDelta, playerEntity, inventory.armor.get(3 - i), i + 1);
             } else if (hotIconConfig.getPosition() == PositionDisplayOption.MIDDLE) {
-                p = scaledHeight / 2 - 32;
-                if (!isLeft) o -= 16;
-                o += hotIconConfig.getTweakX();
-                p += hotIconConfig.getTweakY();
+                iconY = scaledHeight / 2 - 32;
+                if (!isLeft) iconX -= 16;
+                iconX += hotIconConfig.getTweakX();
+                iconY += hotIconConfig.getTweakY();
                 for (int i = 0; i < 4; i++)
-                    renderHotbarItem(o, p + i * 16, tickDelta, playerEntity, inventory.armor.get(3 - i), i + 1);
+                    renderHotbarItem(iconX, iconY + i * 16, tickDelta, playerEntity, inventory.armor.get(3 - i), i + 1);
             } else {
-                if (!isLeft) o -= 4 * 16;
-                if (isBottom) p = scaledHeight - 16;
-                o += hotIconConfig.getTweakX();
-                p += hotIconConfig.getTweakY();
+                if (!isLeft) iconX -= 4 * 16;
+                if (isBottom) iconY = scaledHeight - 16;
+                iconX += hotIconConfig.getTweakX();
+                iconY += hotIconConfig.getTweakY();
                 for (int i = 0; i < 4; i++)
-                    renderHotbarItem(o + i * 16, p, tickDelta, playerEntity, inventory.armor.get(3 - i), i + 1);
+                    renderHotbarItem(iconX + i * 16, iconY, tickDelta, playerEntity, inventory.armor.get(3 - i), i + 1);
 
             }
             RenderSystem.disableBlend();

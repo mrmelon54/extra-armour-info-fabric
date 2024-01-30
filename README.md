@@ -1,5 +1,7 @@
 # Extra Armour Info
 
+## Moved to [extra_armor_info](https://github.com/mrmelon54/extra_armor_info)
+
 Requires the [Fabric Loader](https://fabricmc.net/use/) and [Fabric API](https://www.curseforge.com/minecraft/mc-mods/fabric-api)
 
 Logo made by [@LimeShulkerBox](https://www.curseforge.com/members/limeshulkerbox/projects)
